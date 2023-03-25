@@ -53,7 +53,7 @@ program HelloWorld;
 var str : string;
 begin
     str := 'Hello, World!';
-    WriteLn(str)
+    WriteLn(str) // no semicolon
 end.
 ```
 
