@@ -24,6 +24,7 @@ or write the following at the top of a file:
 ```prolog
 :- use_module(library(clpfd)).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 ---
 
@@ -61,12 +62,11 @@ X #\= Y.
 how are these different from the regular comparison operators?
 
 ```prolog
-X + 2 =:= Y + X.
-% ERROR: Arguments are not sufficiently instantiated
+?- X + 2 =:= Y + X.
 
-X + 2 #= Y + X.
-% Y = 2, X in inf..sup.
+?- X + 2 #= Y + X.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 the `#`-operators don't require that any of the variables are instantiated
 
@@ -77,42 +77,40 @@ the `#`-operators don't require that any of the variables are instantiated
 `CLP(FD)` can give a domain as a solution
 
 ```prolog
-0 #< X, X #< 5.
-% X in 1..4.
+?- 0 #< X, X #< 5.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 in a domain `sup` is for supremum and `inf` is for infimum
 
 ```prolog
-0 #< X.
-% X in 1..sup.
+?- 0 #< X.
 
-X #< 5
-% X in inf..4.
+?- X #< 5.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 we can use the `in` operator in our code
 
 ```prolog
-X in 1..5.
-% X in 1..5.
+?- X in 1..5.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 `\/` is used for domains union
 
 ```prolog
-X in 1..5, X #\= 2.
-% X in 1\/3..5.
+?- X in 1..5, X #\= 2.
 
-X in 1\/2\/3.
-% X in 1..3.
+?- X in 1\/2\/3.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -121,28 +119,27 @@ X in 1\/2\/3.
 `indomain(X)` is used to successively bind `X` to all integers of its domain
 
 ```prolog
-X in 1..3, indomain(X).
-% X = 1 ; X = 2 ; X = 3.
+?- X in 1..3, indomain(X).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 `indomain` must always terminate
 
 ```prolog
-X in 0..sup, indomain(X).
-% ERROR: Arguments are not sufficiently instantiated
+?- X in 0..sup, indomain(X).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 `label` is just like `indomain` but for a list of variables
 
 ```prolog
-:- use_module(library(clpfd)).
-
-0 #=< N, N #< 17, 0 #< A, 0 #< B, N * N #= A * A + B * B, label([N, A, B]).
+?- 0 #=< N, N #< 17, 0 #< A, 0 #< B, N * N #= A * A + B * B, label([N, A, B]).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 ---
 
@@ -157,9 +154,9 @@ implement the predicate `change/2`. `change(S, L)` is true iff:
 (assume `S` is concrete)
 
 ```prolog
-change(21, [10, 5, 1, 1, 1, 1, 1, 1]).
-% true.
+?- change(21, [10, 5, 1, 1, 1, 1, 1, 1]).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -173,13 +170,21 @@ you can use the predicate `repeat/3`. `repeat(N, C, L)` is true iff:
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 ```prolog
-:- use_module(library(clpfd)).
+repeat(0, _, []).
+repeat(N, C, [C|Xs]) :-
+	N #> 0,
+	Ns #= N - 1,
+	repeat(Ns, C, Xs).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
+
+```prolog
 build([], []).
 build([[N,C]|T], L) :- repeat(N, C, Xs), build(T, Ys), append(Xs, Ys, L).
 
@@ -190,3 +195,4 @@ change(S, L) :-
     build([[A10, 10], [A5, 5], [A1, 1]], L)
 .
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->

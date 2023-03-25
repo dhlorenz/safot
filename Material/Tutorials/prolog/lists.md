@@ -33,12 +33,11 @@ length([_|Tail], N) :-
 ```
 
 ```prolog
-length([a, b, [c, d], e], N).
-% N = 4.
+?- length([a, b, [c, d], e], N).
 
-length(L, 4).
-% L = [_10798, _10804, _10810, _10816].
+?- length(L, 4).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -62,7 +61,13 @@ length([_|Tail], N) :-
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- is_list(17).
+?- is_list([1, 2, 3]).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -70,6 +75,7 @@ length([_|Tail], N) :-
 is_list([]).
 is_list([X|Xs]) :- is_list(Xs).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -78,7 +84,12 @@ is_list([X|Xs]) :- is_list(Xs).
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- member(X, [17, 13, 2, 5]).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -86,6 +97,7 @@ is_list([X|Xs]) :- is_list(Xs).
 member(X, [X|Xs]).
 member(X, [Y|Ys]) :- member(X, Ys).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -94,7 +106,12 @@ member(X, [Y|Ys]) :- member(X, Ys).
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- prefix(X, [a, b, c, d]).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -102,6 +119,7 @@ member(X, [Y|Ys]) :- member(X, Ys).
 prefix([], L).
 prefix([X|Xs], [X|Ys]) :- prefix(Xs, Ys).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -110,7 +128,12 @@ prefix([X|Xs], [X|Ys]) :- prefix(Xs, Ys).
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- suffix(X, [1, 2, 3]).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -118,6 +141,7 @@ prefix([X|Xs], [X|Ys]) :- prefix(Xs, Ys).
 suffix(Xs, Xs).
 suffix(Xs, [Y|Ys]) :- suffix(Xs, Ys).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -132,7 +156,12 @@ del(X, L, R)
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- del(2, [1, 2, 3, 2, 3, 2], X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -140,6 +169,7 @@ del(X, L, R)
 del(X, [X|Xs], Xs).
 del(X, [Y|Ys], [Y|Zs]) :- del(X, Ys, Zs).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -148,13 +178,19 @@ del(X, [Y|Ys], [Y|Zs]) :- del(X, Ys, Zs).
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- insert(3, [1, 2, 3], X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 ```prolog
 insert(X, L, R) :- del(X, R, L).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -163,7 +199,12 @@ insert(X, L, R) :- del(X, R, L).
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- append([1, 2], [3, 4, 5], X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -171,6 +212,7 @@ insert(X, L, R) :- del(X, R, L).
 append([], Ys, Ys).
 append([X|Xs], Ys, [X|Zs]) :- append(Xs, Ys, Zs).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -179,13 +221,14 @@ append([X|Xs], Ys, [X|Zs]) :- append(Xs, Ys, Zs).
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 ```prolog
 member(X, Xs) :- append(_, [X|_], Xs).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -194,7 +237,7 @@ member(X, Xs) :- append(_, [X|_], Xs).
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -203,6 +246,7 @@ sublist(Xs, Ys) :-
     append(As, Bs, Ys),
     append(Xs, Cs, Bs).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -215,6 +259,7 @@ sublist(Xs, Ys) :-
     prefix(Ps, Ys),
     suffix(Xs, Ps).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -223,7 +268,12 @@ sublist(Xs, Ys) :-
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- permutation([1, 2, 3], X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -233,3 +283,4 @@ permutation([X|L], P) :-
     permutation(L, L1),
     insert(X, L1, P).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->

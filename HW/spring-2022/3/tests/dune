@@ -1,5 +1,0 @@
-(test
- (name test1)
- (libraries sol)
- (modules test1)
-)

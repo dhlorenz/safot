@@ -14,7 +14,7 @@ CodeMirror.defineOption("blurOnExecute", false, function (cm, val) {
     });
 });
 
-function thebe_init(kernel, selector, port) {
+function thebe_init(kernel, selector, host, port) {
     thebelab.bootstrap({
         requestKernel: true,
         outputSelector: '[data-output]',
@@ -23,8 +23,8 @@ function thebe_init(kernel, selector, port) {
             kernelName: kernel,
             path: ".",
             serverSettings: {
-                "baseUrl": `http://localhost:${port}`,
-                "wsUrl": `ws://localhost:${port}`
+                "baseUrl": `http://${host}:${port}`,
+                "wsUrl": `ws://${host}:${port}`
             }
         },
         selector: `[data-thebe-executable-${selector}]`,
@@ -51,15 +51,17 @@ function make_codeblock_editable(element) {
     element.codemirror = cm;
 }
 
-function thebe_init_all(sub, port) {
+function thebe_init_all(sub, host, port) {
     if (sub === "sml") {
-        thebe_init("smlnj", "sml", port);
+        thebe_init("smlnj", "sml", host, port);
     } else if (sub === "theory") {
-        thebe_init("javascript", "javascript", port);
+        thebe_init("javascript", "javascript", host, port);
     } else if (sub === "python") {
-        thebe_init("python3", "python", port);
+        thebe_init("python3", "python", host, port);
     } else if (sub === "ocaml") {
-        thebe_init("ocaml-jupyter", "ocaml", port);
+        thebe_init("ocaml-jupyter", "ocaml", host, port);
+    } else if (sub === "prolog") {
+        thebe_init("jswipl", "prolog", host, port);
     }
     for (const cb of document.querySelectorAll("[data-codeblock-editable]")) {
         make_codeblock_editable(cb);
@@ -77,6 +79,7 @@ function thebe_init_all(sub, port) {
 const REVEAL_PARAMS = {
     hash: true,
     slideNumber: true,
+    help: false,
     plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
     keyboard: {
         39: 'next',

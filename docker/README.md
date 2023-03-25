@@ -35,3 +35,7 @@ source start.sh
 ### open slides
 
 go to <http://127.0.0.1:16788/slides>
+
+## TODO
+
+- [ ] install the prolog jupyter kernel to `base/`

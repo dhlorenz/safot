@@ -185,7 +185,7 @@ are called "symbolic" identifiers in the SML lingo
 
 ### ML keywords
 
-`abstype` | `and` | `andalso` | `as` | `case` | `datatype` | `do` | `else` | `end |` `eqtype` | `exception` | `fn` | `fun` | `functor` | `handle` | `if` | `in |` `include` | `infix` | `infixr` | `let` | `local` | `nonfix` | `of` | `op` | `open |` `orelse` | `raise` | `rec` | `sharing` | `sig` | `signature` | `struct |` `structure` | `then` | `type` | `val` | `while` | `with` | `withtype`
+`abstype` | `and` | `andalso` | `as` | `case` | `datatype` | `do` | `else` | `end` | `eqtype` | `exception` | `fn` | `fun` | `functor` | `handle` | `if` | `in` | `include` | `infix` | `infixr` | `let` | `local` | `nonfix` | `of` | `op` | `open` | `orelse` | `raise` | `rec` | `sharing` | `sig` | `signature` | `struct` | `structure` | `then` | `type` | `val` | `while` | `with` | `withtype`
 
 keywords are words that look like identifiers, but cannot be used as such; they are reserved for other purposes.
 
@@ -753,21 +753,15 @@ $$gcd(m,n) = \begin{cases}n,m = 0&\\gcd(n mod m,m), m>0\end{cases}$$
 
 <!--vert-->
 
-### GCD - Pascal vs. ML
+### GCD - Python vs. ML
 
-an imperative Pascal program:
+an imperative Python program:
 
-```pascal
-function gcd(m,n: integer): integer;
-var prevm: integer;
-begin
-    while m<>0 do begin
-        prevm := m;
-        m := n mod m;
-        n := prevm
-    end;
-    gcd := n
-end;
+```python
+def gcd(m: int, n: int) -> int:
+    while m != 0:
+        n, m = m, n % m
+    return n
 ```
 
 a functional program in Standard ML:

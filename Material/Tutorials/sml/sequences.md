@@ -189,7 +189,7 @@ fun interleaveq (Nil, yq)       = yq
 <!--vert-->
 
 ```sml
-fun dropq _ 0 = Nil
+fun dropq seq 0 = seq
   | dropq Nil _ = Nil
   | dropq (Cons(x, xf)) n = dropq (xf()) (n - 1);
 ```
@@ -233,7 +233,7 @@ fun listToSeq [] = Nil
 
 <!--vert-->
 
-![q1](../material/Tutorials/imgs/q1.png)
+![q1](../imgs/q1.png)
 
 <!--vert-->
 
@@ -254,7 +254,7 @@ fun fraction m n =
 
 <!--vert-->
 
-![q2](../material/Tutorials/imgs/q2.png)
+![q2](../imgs/q2.png)
 
 <!--vert-->
 

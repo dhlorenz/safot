@@ -1,5 +1,0 @@
-(defun append (x xs)
-		(cond ((null xs) (cons x nil))
-				(t (cons (car xs) (recurse x (cdr xs))))))
-(append (car 'c) '(a b))
-(append 'c (car 'a))

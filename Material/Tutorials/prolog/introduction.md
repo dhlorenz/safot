@@ -21,6 +21,7 @@ john
 $<@
 'an atom'
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -57,6 +58,7 @@ a **compound term** comprises a functor and arguments
 ```prolog
 course(236319, pl)
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 a functor `f` of arity `n` is denoted `f/n`
 
@@ -76,8 +78,9 @@ a functor `f` of arity `n` is denoted `f/n`
 a **fact** (עובדה) is a kind of statement
 
 ```prolog
-eats(bear, honey).
+eats(bunny, carrot).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 this fact states that the **predicate** `eats` holds for the atoms `bear` and `honey`
 
@@ -90,6 +93,7 @@ summer.
 sad(john).
 plus(2, 3, 5).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -104,6 +108,7 @@ eats(bear, salmon).
 eats(rat, salmon).
 eats(salmon, warm).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" --> 
 
 <!--vert-->
 
@@ -112,6 +117,7 @@ facts can contain variables
 ```prolog
 likes(X, course236319).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" --> 
 
 variables are universally quantified
 
@@ -124,9 +130,9 @@ $$\forall X,likes(X, course236319)$$
 a **query** (שאילתה) is a conjunction of goals
 
 ```prolog
-eats(X, salmon), eats(X, honey).
-% X = bear.
+?- eats(X, salmon), eats(X, honey).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" --> 
 
 variables are existentially quantified
 
@@ -154,6 +160,12 @@ survival_dependency(X, Y) :- eats(X, Y).
 survival_dependency(X, Y) :-
     eats(X, Z), survival_dependency(Z, Y).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" --> 
+
+```prolog
+?- survival_dependency(bear, X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 ---
 
@@ -172,13 +184,19 @@ survival_dependency(X, Y) :-
 you can add clauses dynamically
 
 ```prolog
-assertz(eats(bear, tuna)).
-assertz((
+:- assertz(eats(bear, tuna)).
+:- assertz((
   mother(Child, Mother) :-
     parent(Child, Mother),
     female(Mother)
 )).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- eats(bear, tuna).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 `asserta` asserts the clause as first clause of the predicate while `assertz` asserts it as last clause
 
@@ -187,49 +205,63 @@ assertz((
 dynamically remove a clause using `retract/1`
 
 ```prolog
-assertz(q(a)).
-assertz((p(X) :- q(X))).
-assertz(p(b)).
-p(a).
-% true.
-
-retract(p(X) :- q(a)).
-p(a).
-% false.
+:- assertz(q(a)).
+:- assertz((p(X) :- q(X))).
+:- assertz(p(b)).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+:- retract(p(X) :- q(a)).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- p(a).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 dynamically remove clauses using `retractall/1`
 
 ```prolog
-assertz(q(a)).
-assertz((p(X) :- q(X))).
-assertz(p(b)).
-p(a), p(b).
-% true.
-
-retractall(p(_)).
-p(a).
-% false.
-p(b).
-% false.
+:- assertz(q_2(a)).
+:- assertz((p_2(X) :- q_2(X))).
+:- assertz(p_2(b)).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+:- retractall(p_2(_)).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- p_2(a).
+?- p_2(b).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 dynamically remove a predicate using `abolish/1`
 
 ```prolog
-assertz(p(a)).
-assertz(p(b)).
-p(a), p(b).
-% true
-
-abolish(p/1).
-p(X).
-% ERROR: Unknown procedure: p/1 (DWIM could not correct goal)
+:- assertz(p(a)).
+:- assertz(p(b)).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+:- abolish(p/1).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- p(X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 ---
 
@@ -256,23 +288,18 @@ two terms match if:
 the operator `=` performs matching
 
 ```prolog
-course(N, S, 95) = course(X, fall, G).
-/*
-N = X,
-S = fall,
-G = 95.
-*/
+?- course(N, S, 95) = course(X, fall, G).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 ```prolog
-course(N, S, 95) = course(Y, M, 96).
-% false.
+?- course(N, S, 95) = course(Y, M, 96).
 
-course(X) = semester(Y).
-% false.
+?- course(X) = semester(Y).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -303,15 +330,11 @@ triangle( point(4, 2), point(6, 4), point(7, 1) )
 <!--vert-->
 
 ```prolog
-triangle(point(1, 1), A, point(2, 3))
+?- triangle(point(1, 1), A, point(2, 3))
 =
 triangle(X, point(4, Y), point(2, Z)).
-/*
-A = point(4, Y),
-X = point(1, 1),
-Z = 3.
-*/
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -325,19 +348,18 @@ vertical(seg(
     point(X, Y2)
 )).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 queries:
 
 ```prolog
-vertical(seg(point(1, 1), point(1, 2))).
-% true.
+?- vertical(seg(point(1, 1), point(1, 2))).
 
-vertical(seg(point(1, 1), point(2, Y))).
-% false.
+?- vertical(seg(point(1, 1), point(2, Y))).
 
-vertical(seg(point(2,3), P)).
-% P = point(2, _17044).
+?- vertical(seg(point(2,3), P)).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 ---
 
@@ -347,12 +369,11 @@ vertical(seg(point(2,3), P)).
 * but they are arithmetic operators after the operator `is`
 
 ```prolog
-X = 1 + 2.
-% X = 1+2.
+?- X = 1 + 2.
 
-X is 1 + 2.
-% X = 3.
+?- X is 1 + 2.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -372,12 +393,11 @@ X =\= Y  % not equal
 the comparison operators also force evaluation
 
 ```prolog
-11 * 6 = 66.
-% false.
+?- 11 * 6 = 66.
 
-11 * 6 =:= 66.
-% true.
+?- 11 * 6 =:= 66.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -387,12 +407,11 @@ the comparison operators also force evaluation
 * `=:=` causes an arithmetic evaluation of its operands and cannot instantiate variables
 
 ```prolog
-1 + X = Y + 2.
-% X = 2, Y = 1.
+?- 1 + X = Y + 2.
 
-1 + X =:= Y + 2.
-% ERROR: =:=/2: Arguments are not sufficiently instantiated
+?- 1 + X =:= Y + 2.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -408,6 +427,12 @@ gcd(X, Y, D) :-
     Y < X,
     gcd(Y, X, D).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- gcd(12, 30, D).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 ---
 
@@ -455,27 +480,30 @@ the predicates `false/0` and `fail/0` always fail
 <!--vert-->
 
 ```prolog
-assertz(person(jimmy)).
-assertz(person(cindy)).
-
-person(rick).
-% false.
-
-\+ person(rick).
-% true.
+person(jimmy).
+person(cindy).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- person(rick).
+?- \+ person(rick).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 it might not work like you'd expect
 
 ```prolog
-person(X).
-% X = jimmy ; X = cindy.
-
-\+ person(X).
-% false.
+?- person(X).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- \+ person(X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 why doesn't prolog answer with `X = rick` or simply with `true`?
 
@@ -491,16 +519,20 @@ why doesn't prolog answer with `X = rick` or simply with `true`?
 `\+/1` allows for non-monotonic reasoning - a fact can become false by adding clauses to the database
 
 ```prolog
-assertz(illegal(murder)).
-assertz((legal(X) :- \+ illegal(X))).
-
-legal(theft).
-% true.
-
-assertz(illegal(theft)).
-legal(theft).
-% false.
+illegal(murder).
+legal(X) :- \+ illegal(X).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+illegal(theft).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- legal(theft).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 ---
 
@@ -510,12 +542,15 @@ you have a database with the following predicate
 
 ```prolog
 parent(X, Y).  % X is Y's parent
+```
 
+```prolog
 % examples:
 parent(adam, cain).
 parent(eve, cain).
 parent(cain, enoch).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 define a predicate `grandparent(X)` that holds when `X` is a grandparent
 
@@ -524,7 +559,12 @@ define a predicate `grandparent(X)` that holds when `X` is a grandparent
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- grandparent(X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -543,13 +583,18 @@ a nuclear family consists of 2 parents and their common children
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- nuclear(adam, X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
 ```prolog
 nuclear(X, Y) :-  % siblings
-    parent(P1, X), parent(P2, X)
+    parent(P1, X), parent(P2, X),
     parent(P1, Y), parent(P2, Y),
     \+(P1 = P2).  % alternatively: `P1 \= P2`
 
@@ -576,7 +621,21 @@ define a predicate `tree_size(T, S)` such that `T` is a binary tree and `S` is i
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- tree_size(node(1,
+	node(2, 
+		nil, 
+		nil
+	),
+	node(3,
+		node(4, nil, nil),
+		nil
+	)),
+	S).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -597,7 +656,23 @@ you may use the arithmetic function `max/2`
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+<!--vert-->
+
+```prolog
+?- tree_max(node(10,
+    node(-3, 
+        nil, 
+        nil
+    ),
+    node(14,
+        node(4, nil, nil),
+        nil
+    )),
+    M).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -626,7 +701,12 @@ a perfect binary tree is a binary tree in which all interior nodes have two chil
 ```prolog
 ...
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- perfect_tree(T, 2).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 

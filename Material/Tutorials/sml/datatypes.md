@@ -23,7 +23,7 @@ don't confuse with with `type` which is a mechanism for giving new names to exis
 
 <!--vert-->
 
-`dattatype` is an SML type constructor:
+`datatype` is an SML type constructor:
 
 * given: a list of types and list of tags
 * produce: a new type out of these
@@ -132,7 +132,7 @@ a engine body; (*Error*)
 the term *constructor* may be confusing
 
 * constructors of classes, as in C++
-* consturcotrs of types, as in abstract type constructors
+* constructors of types, as in abstract type constructors
 
 <!--vert-->
 

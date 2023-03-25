@@ -1,10 +1,11 @@
 FROM twyair/safot-revealjs:base
 
-WORKDIR /home/safot
+WORKDIR /root
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN ijsinstall
-COPY start.sh /home/safot
-RUN git clone https://github.com/CS234319/safot.git
-RUN cd safot/reveal.js; npm install --production
+COPY start.sh /root
+
+RUN git clone https://github.com/OpenUniversity/safot.git \
+    && cd safot/reveal.js \
+    && npm install --omit=dev

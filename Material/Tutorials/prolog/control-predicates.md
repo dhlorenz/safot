@@ -16,19 +16,22 @@ reminder:
 
 the predicate `fail/0` will always fail (like `1 = 0`):
 ```prolog
-X = 1, fail.
+?- X = 1, fail.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 
 compare with
 ```prolog
-X = 1.
+?- X = 1.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 similarly, the predicate `true/0` will always succeed (like `1 = 1`):
 ```prolog
-X = 1 ; true.
+?- X = 1 ; true.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 NOTE: expected results - `false.`, `X = 1.`, `X = 1 ; true.`.
 
@@ -36,8 +39,9 @@ NOTE: expected results - `false.`, `X = 1.`, `X = 1 ; true.`.
 
 the predicate `repeat/0` will always succeed, and will repeat the body of the predicate until it fails:
 ```prolog
-repeat, X = 1.
+?- repeat, X = 1.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 NOTE: expected result - `X = 1; X = 1; X = 1; ...`.
 
@@ -49,14 +53,19 @@ NOTE: expected result - `X = 1; X = 1; X = 1; ...`.
 
 consider the following clause set for `f/2`:
 ```prolog
+:- use_module(library(clpfd)).
+
 f(X, 0) :- X #< 3.
 f(X, 2) :- 3 #=< X, X #< 6.
 f(X, 4) :- 6 #=< X. 
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
 and the goal
 ```prolog
-f(1, Y), 2 #< Y.
+?- f(1, Y), 2 #< Y.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -78,6 +87,7 @@ f(X, 0) :- X #< 3, !.
 f(X, 2) :- 3 #=< X, X #< 6, !.
 f(X, 4) :- 6 #=< X. 
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 whenever the goal `f(X, Y)` is encountered, we will only test the first rule that matches. if we perform the query again, we will get the same result, but only the first rule will be attempted.
 
@@ -98,6 +108,7 @@ f(X, 0) :- X #< 3, !.
 f(X, 2) :- X #< 6, !.
 f(X, 4). 
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 - now, the cuts *do* affect the declarative meaning - removing the cuts will result in a different result
 - we also notice that in this situation, the order of the clauses does matter for the result (and not just for efficiency)
@@ -118,6 +129,8 @@ when the cut is encountered, it does succeed immediately, but it commits the alg
 ```prolog
 H :- A1, A2, .... Am, !, B1, B2, ..., Bn.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
 
 when Prolog encounters the cut, the solution to `A1, ..., Am` is frozen and *all other possible solutions are discarded*.
 
@@ -132,6 +145,7 @@ C :- P, Q, R, !, S, T, U.
 C :- V.
 A :- B, C, D.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 and the goal `A`.
 
@@ -150,6 +164,7 @@ adding to a list without duplicates:
 add(X, L, L) :- member(X, L), !.
 add(X, L, [X|L]) :- !.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 "Mary likes all animals but snakes"
 
@@ -157,6 +172,7 @@ add(X, L, [X|L]) :- !.
 likes(mary, X) :- snake(X), !, fail.
 likes(mary, X) :- animal(X).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 this last example is an example of a common idiom in Prolog - negation. the cut prevents backtracking, and then we cause the goal to fail.
 
@@ -169,6 +185,7 @@ we define the `not/1` predicate:
 not(P) :- P, !, fail.
 not(P).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 the `not/1` predicate acts the same way as `\+` that we saw earlier - it is not negation but rather unprovability. 
 
@@ -177,6 +194,7 @@ this allows us to define predicates like `different/2` which succeeds only if tw
 ```prolog
 different(X, Y) :- not(X = Y).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -185,8 +203,19 @@ r(a).
 q(b).
 p(X) :- not(r(X)).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 can you tell what `q(X), p(X).` will print? what about `p(X), q(X).`?
+
+```prolog
+?- q(X), p(X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- p(X), q(X).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 NOTE: `X = b.`, `false.`
 
@@ -207,6 +236,13 @@ is this a green cut or a red cut?
 min(X, Y, X) :- X #=< Y, !.
 min(X, Y, Y).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+```prolog
+?- 
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
 
 NOTE: red
 
@@ -219,21 +255,29 @@ define the predicate `maybe_once/1` that accepts a predicate and succeeds at mos
 for example, for the dataset:
 ```prolog
 ta(yair).
-ta(itamar).
-ta(nadav).
+ta(andrey).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 and for the goal `maybe_once(ta(X))`, we would expect to get `X = yair.`.
 
 <!--vert-->
 
 ```prolog
 
-
-
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
-NOTE: `maybe_once(X) :- X, !.`
+```prolog
+?- maybe_once(ta(X)).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
+
+<!--vert-->
+
+```prolog
+maybe_once(X) :- X, !.
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -246,6 +290,7 @@ we saw this example in the previous section:
 likes(mary, X) :- snake(X), !, fail.
 likes(mary, X) :- animal(X).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 it has semantics "Mary likes all animals, except for snakes (even if snakes are animals)"
 
 <!--vert-->
@@ -255,12 +300,13 @@ what will happen now?
 likes(mary, X) :- snake(X) -> fail.
 likes(mary, X) :- animal(X).
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 NOTE: Mary likes all animals and she doesn't like snakes, unless snakes are animals
 
 <!--vert-->
 
-for the datasets `animal(a), snake(a), animal(b)`, we get:
+for the datasets `animal(a), snake(a), animal(b), snake(c)`, we get:
 
 - the first program will have `likes(mary, b)` but not `likes(mary, a)` or `likes(mary, c)`.
 - the second program will have `likes(mary, a)`, `likes(mary, b)` but not `likes(mary, c)`.
@@ -274,8 +320,13 @@ it is possible to define an "else" branch, for example:
 ```prolog
 grade(X, Y) :- X #>= 100 -> Y = 100 ; Y = X.
 ```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
-NOTE: check `grade(101, Y).` gives `Y = 100.`, `grade(99, Y).` gives `Y = 99.`
+```prolog
+?- grade(101, Y).
+?- grade(99, Y).
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
 <!--vert-->
 
@@ -285,9 +336,12 @@ redefine the predicate ``maybe_once/1`` from earlier using `->/2`.
 
 ```prolog
 
-
 ```
-<!-- .element: data-codeblock-editable data-language="text/x-prolog" -->
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
 
+<!--vert-->
 
-NOTE: `maybe_once(P) :- P -> true.`
+```prolog
+maybe_once(P) :- P -> true.
+```
+<!-- .element: data-thebe-executable-prolog data-language="text/x-prolog" -->
