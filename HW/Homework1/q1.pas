@@ -15,5 +15,5 @@ for i := 1 to n do
         {
             Construct the new line and then print it.
         }
-    end;
+    end
 end.
