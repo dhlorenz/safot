@@ -368,7 +368,7 @@ end.
 
 ---
 
-## arrays in pascal
+## arrays in Pascal
 
 
 > `array` **index-type** `of` **element-type**
@@ -432,7 +432,7 @@ s[i] := '?'; { s = 'Hello, World?' }
 
 ## functions
 
-pascal functions always return a value
+Pascal functions always return a value
 
 ```pascal
 function myFunc(a: integer; b: real): real;
