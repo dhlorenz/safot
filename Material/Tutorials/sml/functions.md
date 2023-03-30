@@ -6,14 +6,14 @@
 
 ### Side note - operators
 
-A function of two arguments can be treated as an infix operator
+A function of two arguments can be treated as an infix operator:
 
 ```sml
 fun d (x,y) = Math.sqrt (x*x + y*y);
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-Convert to an infix operator
+Convert to an infix operator using the `infix` operator:
 
 ```sml
 infix d;
@@ -26,19 +26,19 @@ infix d;
 
 <!--vert-->
 
-the infix declaration can come __before__ the function definition
+### operators
+
+The infix declaration can come __before__ the function definition:
 
 ```sml
 infix d;
 fun (x d y) = Math.sqrt(x*x + y*y);
-
-d;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-```sml
-op d;
+To treat an operator as a prefix function use the `op` keyword:
 
+```sml
 op d(1.0,3.0);
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
@@ -49,14 +49,14 @@ op d(1.0,3.0);
 
 Curry = Haskell Curry (1900-1982), who invented the "trick"
 
-any function of two arguments `$(\alpha * \beta)\rightarrow \gamma$` can be expressed as a **curried** function of one argument `$\alpha\rightarrow (\beta \rightarrow \gamma)$`
+Any function of two arguments `$(\alpha * \beta)\rightarrow \gamma$` can be expressed as a **curried** function of one argument `$\alpha\rightarrow (\beta \rightarrow \gamma)$`
 
 ```sml
 fun prefix (pre, post) = pre ^ post;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-the curried version
+The curried version
 
 ```sml
 fun prefix pre = fn post => pre^post;
@@ -77,9 +77,9 @@ val prefix = fn : string -> (string -> string)
 
 ### partial application
 
-AKA=partial evaluation
+AKA - Partial Evaluation
 
-You don't have to provide subsequent arguments
+You don't have to provide subsequent arguments:
 
 ```sml
 prefix "Dr. ";
@@ -88,7 +88,7 @@ it "Watson";
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-as always, functions are values
+As always, functions are values:
 
 ```sml
 val doctorify = prefix "Dr. ";
@@ -99,14 +99,14 @@ doctorify "Jekyll";
 
 ---
 
-### currying = syntactic sugar
+### currying - syntactic sugar
 
 ```sml
 fun prefix pre post = pre ^ post;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-is equivalent to
+is equivalent to:
 
 ```sml
 fun prefix pre = fn post => pre ^ post;
@@ -124,7 +124,7 @@ prefix "Dr. " "Watson";
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-the rule is:
+The rule is:
 
 * a function invocation `F E1 E2 ... En`
 * abbreviates `(...((F E1) E2)...) En`
@@ -133,7 +133,7 @@ the rule is:
 
 ### Example of partial application
 
-applying infix operator only to one operand
+Applying infix operator only to one operand
 
 ```sml
 fun add5 y = op+ (5, y);
@@ -145,7 +145,7 @@ fun mul5 y = op* (5, y);
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
 <!--vert-->
-
+### Example of partial application
 Now, generalize the operator and operand
 
 ```sml
@@ -198,7 +198,7 @@ it #"1";
 
 <!--vert-->
 
-what will be printed?
+What will be printed?
 
 ```sml
 fun f1 a b = f1 a b;
@@ -207,7 +207,7 @@ fun f1 a b = f1 a b;
 
 <!--vert-->
 
-what will be printed?
+What will be printed?
 
 ```sml
 fun f2 g x = g (f2 g) x;
@@ -216,7 +216,7 @@ fun f2 g x = g (f2 g) x;
 
 <!--vert-->
 
-what will be printed?
+What will be printed?
 
 ```sml
 fun f3 x y z = (x, x(y), y(z));
@@ -225,7 +225,7 @@ fun f3 x y z = (x, x(y), y(z));
 
 <!--vert-->
 
-what will be printed?
+What will be printed?
 
 ```sml
 fun f4 f = f f4;
