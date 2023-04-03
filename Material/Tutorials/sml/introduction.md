@@ -6,36 +6,36 @@
 
 ### What's SML?
 
-born 1985. named Standard ML = Meta Language...
+Born 1985. Named Standard ML = Meta Language...
 
-* the 1970s, Robin Milner and group working at Edinburgh University on "LCF" (a  theorem proover)
+* In 1970s, Robin Milner and group working at Edinburgh University on "LCF" (a theorem proover)
 * ML invented as an embedded scripting language of LCF
-* many ad-hoc independent implementations, many new ideas
+* Many ad-hoc independent implementations, many new ideas
 * 1997: first real standard
 
 <!--vert-->
 
 ### Why SML?
 
-* exemplar of functional programming
+* Exemplar of functional programming
   * functional = forget about variables
   * functional = functions are values
   * functional = higher lever functions
   * ...
-* exemplar of **type safe** functional programming
+* Exemplar of **type safe** functional programming
   * strongly typed: no type error can go undetected
   * statically typed: all type errors are detected at compile time
-* influenced: Haskell, OCaml, Scala, F#, ...
+* Influenced: Haskell, OCaml, Scala, F#, ...
 
 <!--vert-->
 
 ### More on SML
 
-main applications:
+Main applications:
 
-* research
-* teaching
-* few industrial applications
+* Research
+* Teaching
+* Few industrial applications
 
 <!--vert-->
 
@@ -47,22 +47,22 @@ Robin Milner on ML:
 
 <!--vert-->
 
-two main features emphasized by the language creator
+Two main features emphasized by the language creator
 
-* exception mechanism for disciplined management of errors
-* type system
-  * flexibility of typeless
-  * safety of typed
+* Exception mechanism for disciplined management of errors
+* Type system
+  * Flexibility of typeless
+  * Safety of typed
 
 ---
 
 ### Running
 
-mode of operation
+Mode of operation
 
 * REPL (sort of; it is not interpreted)
-* first prompt (-) and secondary prompt (=)
-* semicolon terminated
+* First prompt (-) and secondary prompt (=)
+* Semicolon terminated
 
 ```text
 Standard ML of New Jersey v110.79 [built: Sat Oct 26 12:27:04 2019]
@@ -73,7 +73,7 @@ val it = 10 : int
 <!--vert-->
 
 * ML is usually used in a REPL
-* expressions followed by a semicolon yield a response
+* Expressions followed by a semicolon yield a response
 
 ```sml
 2 + 2;
@@ -86,7 +86,7 @@ val it = 10 : int
 
 <!--vert-->
 
-naming values
+Naming values
 
 ```sml
 val seconds = 60;
@@ -95,7 +95,7 @@ val seconds = 60;
 
 <!--vert-->
 
-using named values in expressions
+Using named values in expressions
 
 ```sml
 val minutes = 60;
@@ -108,7 +108,7 @@ seconds * minutes * hours;
 
 <!--vert-->
 
-the identifier `it`
+The identifier `it`
 
 ```sml
 seconds * minutes * hours;
@@ -123,38 +123,38 @@ val secs_in_hour = it;
 
 ### Identifiers in SML
 
-two kinds of identifiers:
+Two kinds of identifiers:
 
-* alphabetical identifiers, as found in most languages
-* special identifiers, mainly for defining new operators
-
-<!--vert-->
-
-use of identifiers:
-
-* names of types
-* names of values
-  * ordinary values
-  * functions
+* Alphabetical identifiers, as found in most languages
+* Special identifiers, mainly for defining new operators
 
 <!--vert-->
 
-identifier congestion?
+Use of identifiers:
 
-* scoping
-* hiding
-* no overloading!
+* Names of types
+* Names of values
+  * Ordinary values
+  * Functions
+
+<!--vert-->
+
+Identifier congestion?
+
+* Scoping
+* Hiding
+* No overloading!
 
 <!--vert-->
 
 ### Alphabetical Identifiers
 
-* begin with a letter
-* followed by a sequence of letters, digits, `_`, or `'`
-* case sensitive
-* some alphabetical identifiers are reserved words
-  * names of operators: `and`, `if`, `then`, `else`, `orelse`, ...
-  * punctuations: `fun`, `let`, `local`, `of`, ... 
+* Begin with a letter
+* Followed by a sequence of letters, digits, `_`, or `'`
+* Case sensitive
+* Some alphabetical identifiers are reserved words
+  * Names of operators: `and`, `if`, `then`, `else`, `orelse`, ...
+  * Punctuations: `fun`, `let`, `local`, `of`, ... 
   * many more
 
 ```sml
@@ -169,11 +169,11 @@ h''3_H
 
 ### Special Identifiers
 
-are called "symbolic" identifiers in the SML lingo
+Also called "symbolic" identifiers in the SML lingo
 
-* a sequence of one or more of the following ``! % & $ # + - * / : < = > ? @ \ ~ \ ^ | ` ``
-* should not be one of: `: | = => -> #`
-* allowed wherever an alphabetic name is
+* A sequence of one or more of the following ``! % & $ # + - * / : < = > ? @ \ ~ \ ^ | ` ``
+* Should not be one of: `: | = => -> #`
+* Allowed wherever an alphabetic name is
 
     ```sml
     val +-+-+ = 1415;
@@ -187,19 +187,19 @@ are called "symbolic" identifiers in the SML lingo
 
 `abstype` | `and` | `andalso` | `as` | `case` | `datatype` | `do` | `else` | `end` | `eqtype` | `exception` | `fn` | `fun` | `functor` | `handle` | `if` | `in` | `include` | `infix` | `infixr` | `let` | `local` | `nonfix` | `of` | `op` | `open` | `orelse` | `raise` | `rec` | `sharing` | `sig` | `signature` | `struct` | `structure` | `then` | `type` | `val` | `while` | `with` | `withtype`
 
-keywords are words that look like identifiers, but cannot be used as such; they are reserved for other purposes.
+Keywords are words that look like identifiers, but cannot be used as such; they are reserved for other purposes.
 
 ---
 
 ### The Basic Types of ML
 
-six "basic" types: `int`, `real`, `string`, `char`, `bool`, `unit`
+Six "basic" types: `int`, `real`, `string`, `char`, `bool`, `unit`
 
-* they are basic, since they are *atomic*
-* they are basic, since they are *builtin*
-* there are other, user defined types:
-  * user defined types can be atomic
-  * user defined types can be compound
+* They are basic, since they are *atomic*
+* They are basic, since they are *builtin*
+* There are other, user defined types:
+  * User defined types can be atomic
+  * User defined types can be compound
   * a programming language may furnish the user with some builtin, non-atomic types (not in SML)
 
 <!--vert-->
@@ -225,7 +225,7 @@ real * int - real;
 
 #### literals
 
-* sequence of digits
+* Sequence of digits
   * 0
   * 01234
 * `~` for a unary minus sign
@@ -234,9 +234,9 @@ real * int - real;
 
 <!--vert-->
 
-infix operations: `+` `-` `*` `div` `mod`
+Infix operations: `+` `-` `*` `div` `mod`
 
-conventional precedence (parenthesis can be dropped without change of meaning)
+Conventional precedence (parenthesis can be dropped without change of meaning)
 
 ```sml
 (((m * n) * l) - (m div j)) + j
@@ -248,17 +248,17 @@ conventional precedence (parenthesis can be dropped without change of meaning)
 
 #### literal
 
-* decimal point
+* Decimal point
   * `0.01`
   * `2.718281828`
-* e notation
+* E notation
   * `7E~5`
   * `~1.2E12`
   * `~123.4E~2` is the same as `~1.234`
 
 <!--vert-->
 
-infix operators: `+` `-` `*` `/`
+Infix operators: `+` `-` `*` `/`
 
 NOTE: note that `+`, `-`, `*` are overloaded
 
@@ -269,7 +269,7 @@ NOTE: note that `+`, `-`, `*` are overloaded
 * `floor` converts `real` to `int`
 * `real` converts `int` to `real`
 * `sqrt`, `sin`, `cos`, `tan`, `exp`, `ln` all of type `real->real`
-* all need the `Math.` prefix: `Math.sqrt`
+* All need the `Math.` prefix: `Math.sqrt`
 
 ---
 
@@ -277,18 +277,18 @@ NOTE: note that `+`, `-`, `*` are overloaded
 
 <!--vert-->
 
-string literals are written in double quotes
+String literals are written in double quotes
 
 ```sml
 "ML is the best";
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-escape sequences: `\n`, `\t`, `\"`, `\\`
+Escape sequences: `\n`, `\t`, `\"`, `\\`
 
 <!--vert-->
 
-concatenation operator
+Concatenation operator
 
 ```sml
 "Standard" ^ " ML";
@@ -297,7 +297,7 @@ concatenation operator
 
 <!--vert-->
 
-comparison of strings
+Comparison of strings
 
 ```sml
 "abc" < "cba";
@@ -315,7 +315,7 @@ size "SML";
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-notice the syntax of function application - no parentheses!
+Notice the syntax of function application - no parentheses!
 
 ---
 
@@ -323,7 +323,7 @@ notice the syntax of function application - no parentheses!
 
 <!--vert-->
 
-characters (values of type `char`) are distinguished from strings of length 1 by the character `#`
+Characters (values of type `char`) are distinguished from strings of length 1 by the character `#`
 
 ```sml
 "0";
@@ -334,18 +334,18 @@ characters (values of type `char`) are distinguished from strings of length 1 by
 
 <!--vert-->
 
-conversion between strings and chars
+Conversion between strings and chars
 
 ```sml
 str #"0";
 
-String.sub("hello", 0);
+String.sub ("hello", 0);
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
 <!--vert-->
 
-conversion between chars and ASCII
+Conversion between chars and ASCII
 
 ```sml
 ord #"0";
@@ -358,7 +358,7 @@ chr it;
 
 ### boolean
 
-two named values: `true` and `false`
+Two named values: `true` and `false`
 
 ```sml
 true;
@@ -369,19 +369,19 @@ false;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-he names `true` and `false` are not keywords; they are predefined identifiers 
+The names `true` and `false` are not keywords; they are predefined identifiers 
 
 ---
 
-### tuples - cartesian product type
+### tuples - Cartesian product type
 
-* the n-tuple whose components are `x1`, ..., `xn`:
+* The n-tuple whose components are `x1`, ..., `xn`:
 
     ```sml
     (x1, x2, ..., xn)
     ```
 
-* the components can be of any type, including tuples
+* The components can be of any type, including tuples
 
 ```sml
 val a = (1.5, 6.8);
@@ -396,15 +396,15 @@ val a = (1.5, 6.8);
 
 ### records
 
-* records have components (fields) identified by name
+* Records have components (fields) identified by name
 
     ```sml
     val me = { name="Ofir", age=30 };
     ```
     <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* type lists each field as `label : type`
-* enclosed in braces `{...}`
+* Type lists each field as `label : type`
+* Enclosed in braces `{...}`
 
 <!--vert-->
 
@@ -415,20 +415,20 @@ val a = (1.5, 6.8);
     ```
     <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* tuples **can be seen as** records with numbers as implicit field labels
+* Tuples **can be seen as** records with numbers as implicit field labels
 
     ```sml
     #2 ("one", "two", "three");
     ```
     <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* note that the numbering starts with 1
+* Note that the numbering starts with 1
 
 ---
 
 ### lists
 
-a list is a finite sequence of elements
+A list is a finite sequence of elements
 
 ```sml
 [3, 5, 9];
@@ -439,7 +439,7 @@ a list is a finite sequence of elements
 
 <!--vert-->
 
-elements may appear more than once
+Elements may appear more than once
 
 ```sml
 [3,4,3];
@@ -448,7 +448,7 @@ elements may appear more than once
 
 <!--vert-->
 
-elements may have any type but all elements must have the same type
+Elements may have any type but all elements must have the same type
 
 ```sml
 [(1, "one"), (2, "two")] : (int*string) list;
@@ -461,39 +461,39 @@ elements may have any type but all elements must have the same type
 ### mapping - functions
 
 ```sml
-fun sq(x: int) = x*x;
+fun sq (x: int) = x*x;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* keyword `fun` starts the function declaration
+* Keyword `fun` starts the function declaration
 * `sq` is the function name
 * `x:int` is the formal parameter with type constraint
 * `x*x` is the body and it is an **expression**
 
 <!--vert-->
 
-* the result of the function is the result of evaluating the **expression** of the function body with the actual parameter
+* The result of the function is the result of evaluating the **expression** of the function body with the actual parameter
 * `int->int` is the standard mathematical notation for a function type that takes an integer and returns an integer
 
 ---
 
 ### applying a function
 
-* simple function call
+* Simple function call
 
     ```sml
     (sq 3);
     ```
     <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* when a function is called the argument is evaluated and then passed to the function
+* When a function is called the argument is evaluated and then passed to the function
 
     ```sml
     sq (sq 3);
     ```
     <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* the parentheses are optional
+* The parentheses are optional
 
     ```sml
     sq 3;
@@ -502,7 +502,7 @@ fun sq(x: int) = x*x;
 
 <!--vert-->
 
-* parentheses are also optional in function definitions
+* Parentheses are also optional in function definitions
 
     ```sml
     fun sq x:int = x*x;
@@ -513,14 +513,14 @@ fun sq(x: int) = x*x;
 
 ### arguments and results
 
-* every function has one argument and one result
-* any type can be passed/returned!!!
-* tuples are used to pass/return several values
+* Every function has one argument and one result
+* Any type can be passed/returned!!!
+* Tuples can be used to pass/return several values as a single argument
 
 ```sml
 val a = (3.0, 4.0);
 
-fun lengthvec (x:real, y:real) = Math.sqrt(x*x + y*y);
+fun lengthvec (x:real, y:real) = Math.sqrt (x*x + y*y);
 
 lengthvec a;
 
@@ -532,7 +532,7 @@ lengthvec (5.0, 12.0);
 
 ### functions as values
 
-anonymous functions with `fn` notation
+Anonymous functions with `fn` notation
 
 ```sml
 fn x:int => x*x;
@@ -543,7 +543,7 @@ it 3;
 
 <!--vert-->
 
-the following declarations are identical
+The following declarations are identical
 
 ```sml
 fun sq x:int = x*x;
@@ -553,17 +553,17 @@ val sq = fn x:int => x*x;
 
 ---
 
-### returning functions
+### Returning functions
 
-* functions can also be __returned__ from other functions
+* Functions can also be __returned__ from other functions
 
     ```sml
-    fun inttwice(f: (int->int)) =
+    fun inttwice (f: int->int) =
         fn x => f (f x);
     ```
     <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* the arrow is right associative so the type of `inttwice` is equivalent to:
+* The arrow is right associative so the type of `inttwice` is equivalent to:
 
     ```sml
     val inttwice = fn : (int -> int) -> (int -> int)
@@ -571,7 +571,7 @@ val sq = fn x:int => x*x;
 
 <!--vert-->
 
-example
+Example
 
 ```sml
 inttwice (fn x => x*x);
@@ -593,55 +593,55 @@ fun facti (n, p) =
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
-* literals `0` and `1` have type `int`.</span>
-* therefore `n=0` and `n-1` involve integers so `n` has type `int`</span>
+* Literals `0` and `1` have type `int`.</span>
+* Therefore `n=0` and `n-1` involve integers so `n` has type `int`</span>
 * `n*p` must be integer multiplication, so `p` has type `int`</span>
 * `facti` returns type `int`</span>
 
 ---
 
-### type constraints
+### Type constraints
 
-* certain functions are overloaded, e.g. `abs`, `+`, `-`, `~`, `*`, `<`
-* the type of an overloaded function is determined from context, or is set to `int` by default
-* types can be stated explicitly
+* Certain functions are overloaded, e.g. `abs`, `+`, `-`, `~`, `*`, `<`
+* The type of an overloaded function is determined from context, or is set to `int` by default
+* Types can be stated explicitly
 
 ---
 
-what will be printed for the following definitions of `min`?
+What will be printed for the following definitions of `min`?
 
 <!--vert-->
 
 ```sml
-fun min(x, y) = if x < y then x else y;
+fun min (x, y) = if x < y then x else y;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
 <!--vert-->
 
 ```sml
-fun min(x:real,y) = if x < y then x else y;
+fun min (x:real, y) = if x < y then x else y;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
 <!--vert-->
 
 ```sml
-fun min(x:string,y) = if x < y then x else y;
+fun min (x:string, y) = if x < y then x else y;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
 <!--vert-->
 
 ```sml
-fun min(x,y):real = if x < y then x else y;
+fun min (x,y) : real = if x < y then x else y;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
 <!--vert-->
 
 ```sml
-fun min(x,y) = if x < y then x:real else y;
+fun min (x,y) = if x < y then x:real else y;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
@@ -719,7 +719,7 @@ what will be printed?
 ```sml
 fun twice f = fn x => f (f x);
 twice (fn x => x * x);
-it(2);
+it 2;
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
@@ -737,7 +737,7 @@ twice ident;
 you usually may ignore it. or use a workaround:
 
 ```sml
-fn x => (twice ident) (x);
+fn x => twice ident (x);
 ```
 <!-- .element: data-thebe-executable-sml data-language="text/x-ocaml" -->
 
@@ -749,7 +749,7 @@ fn x => (twice ident) (x);
 * functional - stateless. using expressions recursively to calculate the result
 * example: Euclid's algorithm for the Greatest Common Divisor (GCD) of two natural numbers:
 
-$$gcd(m,n) = \begin{cases}n,m = 0&\\gcd(n mod m,m), m>0\end{cases}$$
+$$gcd (m,n) = \begin{cases}n,m = 0&\\gcd (n mod m,m), m>0\end{cases}$$
 
 <!--vert-->
 
@@ -758,7 +758,7 @@ $$gcd(m,n) = \begin{cases}n,m = 0&\\gcd(n mod m,m), m>0\end{cases}$$
 an imperative Python program:
 
 ```python
-def gcd(m: int, n: int) -> int:
+def gcd (m: int, n: int) -> int:
     while m != 0:
         n, m = m, n % m
     return n
@@ -767,7 +767,7 @@ def gcd(m: int, n: int) -> int:
 a functional program in Standard ML:
 
 ```sml
-fun gcd(m,n) = if m=0 then n else gcd(n mod m, m);
+fun gcd (m,n) = if m=0 then n else gcd (n mod m, m);
 ```
 
 which one is more efficient? 🧐
